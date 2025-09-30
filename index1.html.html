@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scholarship Hub – DBT Status Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f9f9ff;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #0052cc, #0088ff);
+      color: white; padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 28px; margin: 0;
+    }
+    nav {
+      background: #004080;
+      display: flex; justify-content: center;
+    }
+    nav a {
+      color: white; padding: 14px 20px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background: #0066cc;
+    }
+    section {
+      padding: 20px; max-width: 900px; margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .button {
+      background: #0088ff;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background: #005fcc;
+    }
+    .hidden { display: none; }
+    .wizard-step { margin: 20px 0; }
+    footer {
+      background: #222; color: white;
+      text-align: center; padding: 15px;
+      margin-top: 40px;
+    }
+    .notif {
+      background: #ffcc00;
+      padding: 10px; border-radius: 6px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Scholarship Hub</h1>
+    <p>Your Gateway to DBT Scholarships & Awareness</p>
+  </header>
+
+  <nav>
+    <a href="#hub">Scholarship Hub</a>
+    <a href="#dbt">DBT Guide</a>
+    <a href="#support">Support</a>
+    <a href="#feedback">Feedback</a>
+  </nav>
+
+  <!-- Scholarship Info Hub -->
+  <section id="hub">
+    <h2>🎓 Scholarship Information Hub</h2>
+    <div class="card">
+      <h3>Pre-Matric Scholarship for SC Students</h3>
+      <p>Eligibility: Class 9 & 10 SC students | Benefit: ₹3000 yearly</p>
+      <a class="button" href="https://scholarships.gov.in/" target="_blank">Apply on NSP</a>
+    </div>
+    <div class="card">
+      <h3>Post-Matric Scholarship for SC Students</h3>
+      <p>Eligibility: Class 11 onwards | Benefit: ₹7000 yearly</p>
+      <a class="button" href="https://scholarships.gov.in/" target="_blank">Apply on NSP</a>
+    </div>
+  </section>
+
+  <!-- DBT Wizard -->
+  <section id="dbt">
+    <h2>💳 Interactive DBT Status Guide</h2>
+    <div id="step1" class="wizard-step">
+      <p>Step 1: Understand the difference.</p>
+      <p>✅ Aadhaar Linked Account ≠ DBT Enabled Account.<br>
+         ✅ DBT Enabled means your Aadhaar is seeded for direct benefit transfers.</p>
+      <div class="button" onclick="nextStep(2)">Next</div>
+    </div>
+
+    <div id="step2" class="wizard-step hidden">
+      <p>Step 2: Check your official status.</p>
+      <a class="button" href="https://resident.uidai.gov.in/bank-mapper" target="_blank">Check on UIDAI Portal</a>
+      <div class="button" onclick="nextStep(3)">I Checked, Continue</div>
+    </div>
+
+    <div id="step3" class="wizard-step hidden">
+      <p>Step 3: What status did you see?</p>
+      <div class="button" onclick="showResult('active')">Active</div>
+      <div class="button" onclick="showResult('inactive')">Inactive / Error</div>
+    </div>
+
+    <div id="result" class="wizard-step hidden"></div>
+  </section>
+
+  <!-- Support -->
+  <section id="support">
+    <h2>📞 Support & Communication Channels</h2>
+    <div class="card">📱 Phone Helpline: <a href="tel:18001801980">1800-180-1980</a></div>
+    <div class="card">💬 WhatsApp Bot: <a href="#">Click to Chat</a></div>
+    <div class="card">📢 Local-language guides available (English | Hindi | Regional)</div>
+    <div class="card">🏫 School orientations & Gram Panchayat noticeboards</div>
+  </section>
+
+  <!-- Feedback -->
+  <section id="feedback">
+    <h2>🔔 Notifications & Feedback</h2>
+    <div class="notif">⚠️ Deadline for Post-Matric Scholarship: 15th Oct</div>
+    <form class="card">
+      <label>Was this guide helpful?</label><br>
+      <input type="radio" name="fb" value="yes"> Yes
+      <input type="radio" name="fb" value="no"> No<br><br>
+      <textarea placeholder="Your suggestion..." rows="3" style="width:100%"></textarea><br>
+      <button type="button" class="button">Submit Feedback</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Scholarship Hub | Awareness for Students</p>
+  </footer>
+
+  <script>
+    function nextStep(step) {
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.add('hidden'));
+      document.getElementById('step' + step).classList.remove('hidden');
+    }
+    function showResult(status) {
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.add('hidden'));
+      let resultBox = document.getElementById('result');
+      resultBox.classList.remove('hidden');
+      if(status === 'active') {
+        resultBox.innerHTML = "<h3>✅ Congratulations!</h3><p>Your account is ready for DBT scholarships. No further action needed.</p>";
+      } else {
+        resultBox.innerHTML = "<h3>⚠️ Action Needed</h3><p>Your account is NOT ready. Please visit your bank branch.<br><a class='button' href='#'>Download Aadhaar Seeding Form</a></p>";
+      }
+    }
+  </script>
+</body>
+</html>
